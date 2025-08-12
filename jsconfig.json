@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "paths": {
       "@/components": ["./app/_components/index.js"],
       "@/config": ["./app/_config/index.js"],

@@ -1,4 +1,4 @@
-import { rootMetadata } from '@/config';
+import { rootMetadata } from './_config';
 import { neue_montreal } from '@/fonts';
 import { Offcanvas } from '@/layout';
 import { Providers } from '@/providers';

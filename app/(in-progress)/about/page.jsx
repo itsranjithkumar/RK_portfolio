@@ -2,10 +2,14 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
+import { useState } from "react"
 
 export default function About() {
   const { scrollYProgress } = useScroll()
   const x = useTransform(scrollYProgress, [0, 1], [0, -1000])
+  const [rotateX, setRotateX] = useState(0)
+  const [rotateY, setRotateY] = useState(0)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   return (
     <div className="min-h-screen bg-white">
@@ -119,15 +123,41 @@ export default function About() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className="pt-6"
+                  className="pt-6 flex items-center gap-6"
                 >
                   <a 
                     href="#contact" 
                     className="group flex items-center gap-2 text-lg text-neutral-800 transition-colors hover:text-sky-500"
                   >
-                    Let&apos;s create something amazing 
+                    Let's create something amazing 
                     <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                   </a>
+
+                  {/* Added Resume Button */}
+                  <motion.a
+                    href="/your-resume.pdf" // Add your resume file path here
+                    download
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 px-6 py-3 bg-neutral-800 text-white rounded-xl hover:bg-sky-500 transition-colors duration-300"
+                  >
+                    <span>Download Resume</span>
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="20" 
+                      height="20" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  </motion.a>
                 </motion.div>
               </div>
             </motion.div>
@@ -139,12 +169,12 @@ export default function About() {
               transition={{ duration: 0.8 }}
               className="relative h-[500px] md:h-[600px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-50 to-neutral-50 rounded-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent rounded-2xl" />
               <Image
-                src="/your-profile-image.jpg"
+                src="/my.png"
                 alt="Profile"
                 fill
-                className="object-cover rounded-2xl mix-blend-overlay"
+                className="object-cover rounded-2xl"
                 priority
               />
               <motion.div
@@ -162,9 +192,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section with Clean Layout */}
       <section className="py-32 px-4 md:px-20 bg-neutral-100">
         <div className="max-w-[1400px] mx-auto">
+          {/* Section Title */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -183,35 +214,6 @@ export default function About() {
                   repeat: Infinity,
                   repeatType: "loop",
                   ease: "easeInOut",
-                  delay: 0
-                }}
-              >
-                .
-              </motion.span>
-              <motion.span
-                animate={{
-                  y: [0, -10, 0]
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                  delay: 0.2
-                }}
-              >
-                .
-              </motion.span>
-              <motion.span
-                animate={{
-                  y: [0, -10, 0]
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                  delay: 0.4
                 }}
               >
                 .
@@ -219,298 +221,300 @@ export default function About() {
             </div>
           </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20">
-            {/* Design */}
+          {/* Enhanced Services Layout */}
+          <div className="space-y-40">
+            {/* Frontend Development */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="group relative"
+              transition={{ duration: 0.8 }}
             >
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <span className="text-7xl font-bold text-neutral-200">01</span>
+              <div className="grid md:grid-cols-2 gap-20">
+                {/* Left Side */}
+                <div className="space-y-8">
+                  <div className="space-y-4">
                   <motion.span 
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="text-yellow-400 text-xl"
-                  >
-                    ✦
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      className="text-sky-500 text-xl font-medium"
+                    >
+                      01 — Frontend Development
                   </motion.span>
+                    <h3 className="text-5xl font-bold text-neutral-800">
+                      Creating Exceptional User Experiences
+                    </h3>
+                
+                    {/* Added Proficiency Indicator */}
+                    <div className="flex items-center gap-3 mt-6">
+                      <span className="text-sm font-medium">Proficiency</span>
+                      <div className="h-1 w-24 bg-neutral-100 rounded-full overflow-hidden">
+                <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: "95%" }}
+                          transition={{ duration: 1.5, ease: "easeOut" }}
+                          className="h-full bg-sky-500 rounded-full"
+                        />
+                      </div>
+                      <span className="text-sm text-neutral-400">95%</span>
+              </div>
                 </div>
                 
-                <motion.div
-                  className="relative rounded-xl border border-neutral-200 bg-neutral-50 p-4 transition-all duration-300 group hover:border-sky-500"
-                >
-                  <h3 className="text-4xl font-normal text-neutral-800">Design</h3>
-                  <p className="text-lg text-neutral-600 leading-relaxed">
-                    With a solid track record in designing websites, I deliver strong and user-friendly digital designs.
-                    <span className="block mt-2 text-neutral-400">(Since 2024 only in combination with development)</span>
+                  <p className="text-xl text-neutral-600 leading-relaxed">
+                    Specializing in modern web development with a focus on performance, 
+                    interactivity, and responsive design.
                   </p>
-                </motion.div>
-              </div>
-            </motion.div>
 
-            {/* Development */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="group relative"
-            >
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <span className="text-7xl font-bold text-neutral-200">02</span>
+                    className="grid grid-cols-2 gap-4 pt-8"
+                  >
+                    {[
+                      "React & Next.js",
+                      "TypeScript",
+                      "TailwindCSS",
+                      "Framer Motion",
+                      "State Management",
+                      "API Integration"
+                    ].map((skill) => (
+                      <div 
+                      key={skill}
+                        className="flex items-center gap-2 group"
+                    >
+                        <span className="h-px w-8 bg-neutral-300 group-hover:w-12 group-hover:bg-sky-500 transition-all duration-300" />
+                        <span className="text-neutral-600 group-hover:text-neutral-800 transition-colors">
+                          {skill}
+                        </span>
+                      </div>
+                    ))}
+                    </motion.div>
                 </div>
-                
-                <motion.div
-                  className="relative rounded-xl border border-neutral-200 bg-neutral-50 p-4 transition-all duration-300 group hover:border-sky-500"
-                >
-                  <h3 className="text-4xl font-normal text-neutral-800">Development</h3>
-                  <p className="text-lg text-neutral-600 leading-relaxed">
-                    I build scalable websites from scratch that fit seamlessly with design. My focus is on micro animations,
-                    transitions and interaction. Building with Next.js and modern web technologies.
-                  </p>
-                </motion.div>
+
+                {/* Right Side */}
+                <div className="space-y-8 md:pt-16">
+                  <div className="space-y-12">
+                    {[
+                      {
+                        title: "Modern Technologies",
+                        description: "Building with the latest frameworks and tools to ensure optimal performance and maintainability."
+                      },
+                      {
+                        title: "Responsive Design",
+                        description: "Creating fluid layouts that work seamlessly across all devices and screen sizes."
+                      },
+                      {
+                        title: "Interactive UI",
+                        description: "Implementing smooth animations and micro-interactions that enhance user engagement."
+                      }
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2 }}
+                        className="group"
+                      >
+                        <div className="border-l-2 border-neutral-200 pl-6 group-hover:border-sky-500 transition-colors">
+                          <h4 className="text-xl font-bold text-neutral-800 mb-2">
+                            {item.title}
+                          </h4>
+                          <p className="text-neutral-600 leading-relaxed">
+                            {item.description}
+                          </p>
+                  </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
 
-            {/* Full Package */}
+            {/* Backend Development */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="group relative"
+              transition={{ duration: 0.8 }}
             >
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <span className="text-7xl font-bold text-neutral-200">03</span>
-                  <span className="text-xl">✦</span>
-                </div>
-                
-                <motion.div
-                  className="relative rounded-xl border border-neutral-200 bg-neutral-50 p-4 transition-all duration-300 group hover:border-sky-500"
-                >
-                  <h3 className="text-4xl font-normal text-neutral-800">The Full Package</h3>
-                  <p className="text-lg text-neutral-600 leading-relaxed">
-                    A complete website from concept to implementation, that&apos;s what makes me stand out. My great sense for
-                    design and my development skills enable me to create kick-ass projects.
+              <div className="grid md:grid-cols-2 gap-20">
+                {/* Left Side */}
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <motion.span 
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      className="text-sky-500 text-xl font-medium"
+                    >
+                      02 — Backend Development
+                    </motion.span>
+                    <h3 className="text-5xl font-bold text-neutral-800">
+                      Building Robust Systems
+                    </h3>
+                  </div>
+                  
+                  <p className="text-xl text-neutral-600 leading-relaxed">
+                    Developing scalable server-side solutions with a focus on performance, 
+                    security, and reliability.
                   </p>
-                </motion.div>
+
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="grid grid-cols-2 gap-4 pt-8"
+                  >
+                    {[
+                      "Node.js/Express",
+                      "Python/FastAPI",
+                      "MongoDB/PostgreSQL",
+                      "Redis/Caching",
+                      "RESTful APIs",
+                      "GraphQL"
+                    ].map((skill) => (
+                      <div 
+                        key={skill}
+                        className="flex items-center gap-2 group"
+                      >
+                        <span className="h-px w-8 bg-neutral-300 group-hover:w-12 group-hover:bg-sky-500 transition-all duration-300" />
+                        <span className="text-neutral-600 group-hover:text-neutral-800 transition-colors">
+                          {skill}
+                        </span>
+                      </div>
+                    ))}
+                    </motion.div>
+                </div>
+
+                {/* Right Side */}
+                <div className="space-y-8 md:pt-16">
+                  <div className="space-y-12">
+                    {[
+                      {
+                        title: "API Development",
+                        description: "Creating efficient and secure APIs that power modern web applications."
+                      },
+                      {
+                        title: "Database Design",
+                        description: "Architecting scalable database solutions with optimal performance."
+                      },
+                      {
+                        title: "System Architecture",
+                        description: "Designing robust backend systems that can handle high loads."
+                      }
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2 }}
+                        className="group"
+                      >
+                        <div className="border-l-2 border-neutral-200 pl-6 group-hover:border-sky-500 transition-colors">
+                          <h4 className="text-xl font-bold text-neutral-800 mb-2">
+                            {item.title}
+                          </h4>
+                          <p className="text-neutral-600 leading-relaxed">
+                            {item.description}
+                          </p>
+                  </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Full Stack Solutions */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="grid md:grid-cols-2 gap-20">
+                {/* Left Side */}
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <motion.span 
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      className="text-sky-500 text-xl font-medium"
+                    >
+                      03 — Full Stack Solutions
+                    </motion.span>
+                    <h3 className="text-5xl font-bold text-neutral-800">
+                      End-to-End Development
+                    </h3>
+                  </div>
+                  
+                  <p className="text-xl text-neutral-600 leading-relaxed">
+                    Delivering complete web solutions from concept to deployment with 
+                    seamless integration between frontend and backend.
+                  </p>
+
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="grid grid-cols-2 gap-4 pt-8"
+                  >
+                    {[
+                      "System Architecture",
+                      "Cloud Services",
+                      "CI/CD Pipelines",
+                      "Testing/QA",
+                      "Performance",
+                      "Security"
+                    ].map((skill) => (
+                      <div 
+                        key={skill}
+                        className="flex items-center gap-2 group"
+                      >
+                        <span className="h-px w-8 bg-neutral-300 group-hover:w-12 group-hover:bg-sky-500 transition-all duration-300" />
+                        <span className="text-neutral-600 group-hover:text-neutral-800 transition-colors">
+                          {skill}
+                        </span>
+                      </div>
+                    ))}
+                    </motion.div>
+                </div>
+
+                {/* Right Side */}
+                <div className="space-y-8 md:pt-16">
+                  <div className="space-y-12">
+                    {[
+                      {
+                        title: "Complete Solutions",
+                        description: "Building full-stack applications with seamless integration and optimal performance."
+                      },
+                      {
+                        title: "DevOps & Deployment",
+                        description: "Setting up automated pipelines and managing cloud infrastructure."
+                      },
+                      {
+                        title: "Maintenance & Scaling",
+                        description: "Ensuring applications remain performant and secure as they grow."
+                      }
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2 }}
+                        className="group"
+                      >
+                        <div className="border-l-2 border-neutral-200 pl-6 group-hover:border-sky-500 transition-colors">
+                          <h4 className="text-xl font-bold text-neutral-800 mb-2">
+                            {item.title}
+                          </h4>
+                          <p className="text-neutral-600 leading-relaxed">
+                            {item.description}
+                          </p>
+                  </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
 
-          {/* Loading Line */}
-          <div className="w-full h-px bg-neutral-200 mt-32 overflow-hidden">
-            <motion.div
-              initial={{ width: "0%" }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 2.5, ease: "easeInOut" }}
-              className="h-full bg-gradient-to-r from-sky-500 via-neutral-800 to-sky-500"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Modern Development Section */}
-      <section className="py-32 relative bg-white">
-        <div className="max-w-[1400px] mx-auto px-4">
-          {/* Main Title - Left Aligned */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="mb-32"
-          >
-            <motion.h2 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className="text-[60px] md:text-[130px] font-bold text-neutral-800 leading-none tracking-tighter flex items-baseline"
-            >
-              Develop<span className="text-neutral-300">ment</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-neutral-600 text-xl mt-8 max-w-2xl"
-            >
-              Creating exceptional digital experiences with clean, efficient, and maintainable code.
-            </motion.p>
-          </motion.div>
-
-          {/* Skills Display - New Layout */}
-          <div className="grid grid-cols-1 gap-24">
-            {/* Frontend Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="relative"
-            >
-              <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-                {/* Title */}
-                <div className="md:w-1/4">
-                  <h3 className="text-4xl font-bold mb-2">Frontend</h3>
-                  <p className="text-neutral-400 text-lg">Architecture</p>
-                </div>
-                {/* Skills */}
-                <div className="md:w-1/2 grid grid-cols-2 gap-4">
-                  {["React", "Next.js", "TypeScript", "Tailwind CSS"].map((skill) => (
-                    <motion.div
-                      key={skill}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      whileHover={{ scale: 1.05 }}
-                      className="relative bg-neutral-50 border border-neutral-200 rounded-xl p-4 group hover:border-neutral-800 transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="font-medium text-lg text-neutral-800 group-hover:text-white transition-colors duration-300 relative z-10">
-                          {skill}
-                        </span>
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          whileHover={{ opacity: 1 }}
-                          className="text-neutral-800 group-hover:text-white text-sm transition-colors duration-300 relative z-10"
-                        >
-                          →
-                        </motion.span>
-                      </div>
-                      <div className="absolute inset-0 bg-neutral-50/0 group-hover:bg-neutral-800 rounded-xl transition-colors duration-300" />
-                    </motion.div>
-                  ))}
-                </div>
-                {/* Progress */}
-                <div className="md:w-1/4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium">Proficiency</span>
-                    <span className="text-sm text-neutral-400">95%</span>
-                  </div>
-                  <div className="h-1 w-full overflow-hidden rounded-full bg-neutral-100">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "95%" }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="h-full bg-black rounded-full"
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Backend Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="relative"
-            >
-              <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-                {/* Title */}
-                <div className="md:w-1/4">
-                  <h3 className="text-4xl font-bold mb-2">Backend</h3>
-                  <p className="text-neutral-400 text-lg">Development</p>
-                </div>
-                {/* Skills */}
-                <div className="md:w-1/2 grid grid-cols-2 gap-4">
-                  {["FastAPI", "Python", "Node.js", "REST APIs"].map((skill) => (
-                    <motion.div
-                      key={skill}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      whileHover={{ scale: 1.05 }}
-                      className="relative bg-neutral-50 border border-neutral-200 rounded-xl p-4 group hover:border-neutral-800 transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="font-medium text-lg text-neutral-800 group-hover:text-white transition-colors duration-300 relative z-10">
-                          {skill}
-                        </span>
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          whileHover={{ opacity: 1 }}
-                          className="text-neutral-800 group-hover:text-white text-sm transition-colors duration-300 relative z-10"
-                        >
-                          →
-                        </motion.span>
-                      </div>
-                      <div className="absolute inset-0 bg-neutral-50/0 group-hover:bg-neutral-800 rounded-xl transition-colors duration-300" />
-                    </motion.div>
-                  ))}
-                </div>
-                {/* Progress */}
-                <div className="md:w-1/4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium">Proficiency</span>
-                    <span className="text-sm text-neutral-400">90%</span>
-                  </div>
-                  <div className="h-1 w-full overflow-hidden rounded-full bg-neutral-100">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "90%" }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="h-full bg-black rounded-full"
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Database Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="relative"
-            >
-              <div className="flex flex-col md:flex-row gap-8 md:gap-16">
-                {/* Title */}
-                <div className="md:w-1/4">
-                  <h3 className="text-4xl font-bold mb-2">Database</h3>
-                  <p className="text-neutral-400 text-lg">Management</p>
-                </div>
-                {/* Skills */}
-                <div className="md:w-1/2 grid grid-cols-2 gap-4">
-                  {["MongoDB", "PostgreSQL", "Database Design", "Data Modeling"].map((skill) => (
-                    <motion.div
-                      key={skill}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      whileHover={{ scale: 1.05 }}
-                      className="relative bg-neutral-50 border border-neutral-200 rounded-xl p-4 group hover:border-neutral-800 transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="font-medium text-lg text-neutral-800 group-hover:text-white transition-colors duration-300 relative z-10">
-                          {skill}
-                        </span>
-                        <motion.span
-                          initial={{ opacity: 0 }}
-                          whileHover={{ opacity: 1 }}
-                          className="text-neutral-800 group-hover:text-white text-sm transition-colors duration-300 relative z-10"
-                        >
-                          →
-                        </motion.span>
-                      </div>
-                      <div className="absolute inset-0 bg-neutral-50/0 group-hover:bg-neutral-800 rounded-xl transition-colors duration-300" />
-                    </motion.div>
-                  ))}
-                </div>
-                {/* Progress */}
-                <div className="md:w-1/4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium">Proficiency</span>
-                    <span className="text-sm text-neutral-400">85%</span>
-                  </div>
-                  <div className="h-1 w-full overflow-hidden rounded-full bg-neutral-100">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "85%" }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="h-full bg-black rounded-full"
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Loading Line */}
+          {/* Bottom Line */}
           <div className="w-full h-px bg-neutral-200 mt-32 overflow-hidden">
             <motion.div
               initial={{ width: "0%" }}
@@ -694,6 +698,13 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* Custom Cursor */}
+      <motion.div
+        className="fixed size-8 rounded-full bg-sky-500/20 pointer-events-none"
+        animate={{ x: mousePosition.x - 16, y: mousePosition.y - 16 }}
+        transition={{ type: "spring", stiffness: 500, damping: 28 }}
+      />
     </div>
   )
 }
