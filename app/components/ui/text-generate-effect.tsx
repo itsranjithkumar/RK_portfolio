@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { motion, stagger, useAnimate } from "motion/react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import React from "react";
 
 export const TextGenerateEffect = ({
@@ -17,19 +17,36 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   let wordsArray = words.split(" ");
-  useEffect(() => {
-    animate(
-      "span",
-      {
-        opacity: 1,
-        filter: filter ? "blur(0px)" : "none",
+  const [hasAnimated, setHasAnimated] = React.useState(false);
+  React.useEffect(() => {
+    if (!scope.current) return;
+    let observer: IntersectionObserver | null = null;
+    const node = scope.current;
+    observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          animate(
+            "span",
+            {
+              opacity: 1,
+              filter: filter ? "blur(0px)" : "none",
+            },
+            {
+              duration: duration ? duration : 1,
+              delay: stagger(0.2),
+            }
+          );
+          setHasAnimated(true);
+          if (observer) observer.disconnect();
+        }
       },
-      {
-        duration: duration ? duration : 1,
-        delay: stagger(0.2),
-      }
+      { threshold: 0.3 }
     );
-  }, [scope.current]);
+    observer.observe(node);
+    return () => {
+      if (observer) observer.disconnect();
+    };
+  }, [scope, animate, filter, duration, hasAnimated]);
 
   const renderWords = () => {
     return (
@@ -38,7 +55,7 @@ export const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className="dark:text-white text-black opacity-0"
+              className="text-neutral-800 opacity-0"
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}
@@ -54,7 +71,7 @@ export const TextGenerateEffect = ({
   return (
     <div className={cn("font-bold", className)}>
       <div className="mt-4">
-        <div className=" dark:text-white text-black text-2xl leading-snug tracking-wide">
+        <div className="text-neutral-800 text-3xl lg:text-4xl leading-snug tracking-wide">
           {renderWords()}
         </div>
       </div>

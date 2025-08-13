@@ -20,7 +20,7 @@ export function UserDetails({ transformX }) {
         <div className='flex items-center gap-8'>
           <ImageWrapper>
             <Image
-              src="/images/profile-picture.jpg"
+              src="/my1.png"
               className='rounded-full object-cover'
               fill={true}
               alt='Ranjith Kumar Profile Picture'
